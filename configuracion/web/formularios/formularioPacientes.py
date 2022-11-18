@@ -1,26 +1,28 @@
 from django import forms 
 class FormularioPacientes(forms.Form):
 
-    ESPECIALIDADES = (
-        (1, 'Cardiología'),
-        (2, 'Medicina Interna'),
-        (3, 'Medico General'),
-        (4, 'Ortopedia'),
-        (5, 'Pediatria'),
+   
+    
+    REGIMEN = (
+        (1, 'Contributivo'),
+        (2, 'Subsidiado'), 
     )
-    JORNADAS = (
-        (1, '6:00 - 14:00'),
-        (2, '14:00 - 22:00'),
-        (3, '22:00 - 6:00'),
-
+    
+    GRUPO = (
+        (1, 'A'),
+        (2, 'B'),
+        (3, 'C'), 
     )
-    SEDES = (
-        (1, 'Almacentro'),
-        (2, 'Punto Clave'),
-        (3, 'Molinos'),
-
+    
+    
+    CUOTA = (
+        (1, 'Nivel A: $3.700'),
+        (2, 'Nivel B: $14.700'),
+        (3, 'Nivel C: $38.500'),
+    
+    
     )
-
+    
     nombre = forms.CharField(
         widget=forms.TextInput(attrs={"class":"form-control mb-3"}),
         required=True,
@@ -39,31 +41,34 @@ class FormularioPacientes(forms.Form):
 
 
     )
-    tarjeta_Profesional = forms.CharField(
-        widget=forms.TextInput(attrs={"class":"form-control mb-3"}),
-        required=True,
-        max_length=20
-    )
-    especialidad = forms.ChoiceField(
+    
+    regimen = forms.ChoiceField(
         widget=forms.Select(attrs={"class":"form-select mb-3"}),
         required=True,
-        choices= ESPECIALIDADES
+        choices= REGIMEN
     )
-    jornada = forms.ChoiceField(
+    
+    grupo = forms.ChoiceField(
         widget=forms.Select(attrs={"class":"form-select mb-3"}),
         required=True,
-        choices= JORNADAS
-
-
+        choices= GRUPO
     )
-    contacto = forms.CharField(
+    
+    cuota = forms.ChoiceField(
+        widget=forms.Select(attrs={"class":"form-select mb-3"}),
+        required=True,
+        choices= CUOTA
+    )
+    
+    telefono = forms.CharField(
         widget=forms.NumberInput(attrs={"class":"form-control mb-3"}),
         required=True,
         max_length=20
 
     )
-    sede = forms.ChoiceField(
-        widget=forms.Select(attrs={"class":"form-select mb-3"}),
+    
+    correo = forms.CharField(
+        widget=forms.TextInput(attrs={"class":"form-control mb-3"}),
         required=True,
-        choices= SEDES
+        max_length=15
     )

@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from web.formularios.formularioMedico import FormularioMedico
 from web.formularios.formularioPacientes import FormularioPacientes
-
+from web.models import Medicos
+from web.models import Pacientes
 
 # Create your views here.
 #Render es PINTAR 
 def Home(request):
     return render(request, 'index.html')
 
-def Medicos(request):
+def MedicosVista(request):
 
     # DEBO UTILIZAR LA CLASE formularioMedico
     # Se debe crear un objeto 
@@ -24,13 +25,30 @@ def Medicos(request):
         if datosRecibidos.is_valid():
             #capturar los datos
             datos=datosRecibidos.cleaned_data
-            print(datos)
+            
+            ##LLevar datos hacia la BD
+            ##Objeto de la clase medicos
+            medicoNuevo=Medicos(
+                nombres=datos["nombre"], 
+                apellidos=datos["apellidos"],
+                cedula=datos["cedula"],
+                tarjeta=datos["tarjeta_Profesional"],
+                especialidad=datos["especialidad"],
+                jornada=datos["jornada"],
+                contacto=datos["contacto"],
+                sede=datos["sede"], 
+            )
+            medicoNuevo.save()
+            print("Datos guardados correctamente")
+            
 
 
     return render(request, 'registrosmedicos.html', diccionario)
     
 
-def Pacientes(request):
+
+## Vista Pacientes
+def PacientesVista(request):
 
     # DEBO UTILIZAR LA CLASE formularioMedico
     # Se debe crear un objeto 
@@ -46,7 +64,21 @@ def Pacientes(request):
         if datosRecibidos.is_valid():
             #capturar los datos
             datos=datosRecibidos.cleaned_data
-            print(datos)
+            ##LLevar datos hacia la BD
+            ##Objeto de la clase medicos
+            pacienteNuevo=Pacientes(
+                nombres= datos["nombre"],
+                apellidos= datos["apellidos"],
+                documento= datos["cedula"],
+                regimen= datos["regimen"],
+                grupoingreso= datos["grupo"],
+                cuota= datos["cuota"],
+                telefono= datos["telefono"],
+                correo= datos["correo"],      
+            )
+            pacienteNuevo.save()
+            print("Datos guardados correctamente")
+            
 
 
     return render(request, 'registropacientes.html', diccionario)
